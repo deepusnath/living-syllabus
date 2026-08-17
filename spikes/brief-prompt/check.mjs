@@ -37,7 +37,8 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith(".md"))) {
   const tutorTurns = [...text.matchAll(/\*\*Tutor:\*\* ([\s\S]*?)(?=\n\n\*\*|\n\n```|$)/g)].map((m) => m[1]);
   tutorTurns.forEach((t, i) => {
     const words = t.split(/\s+/).filter(Boolean).length;
-    if (words > 80) fail(`tutor turn ${i + 1}: ${words} words (cap ~75)`);
+    const cap = i === tutorTurns.length - 1 ? 160 : 80; // distill turn carries the questions
+    if (words > cap) fail(`tutor turn ${i + 1}: ${words} words (cap ~${cap === 160 ? 150 : 75})`);
     const questions = (t.match(/\?/g) ?? []).length;
     if (questions > 1 && i < tutorTurns.length - 1) fail(`tutor turn ${i + 1}: ${questions} questions in one turn`);
   });

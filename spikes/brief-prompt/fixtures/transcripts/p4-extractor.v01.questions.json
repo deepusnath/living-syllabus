@@ -1,0 +1,30 @@
+{
+  "engagement": "high",
+  "understood": [
+    "matrix chain DP recurrence (m[i][j] as min over split point k)",
+    "why fill order matters (shorter chains before longer ones)",
+    "why greedy fails on matrix chain (can't see downstream cost from one cheap step)",
+    "using a split/s-table to reconstruct the optimal parenthesization, not just the min cost"
+  ],
+  "confused": [],
+  "questions": [
+    {
+      "text": "How do I know before trying whether a problem needs DP instead of greedy, or do I just have to watch greedy fail?",
+      "why_teacher": "This is a judgment call about problem structure built from experience across many problems, not a lookup fact.",
+      "tried": "Explained clearly why greedy fails on this specific matrix chain example but didn't generalize it into a rule."
+    },
+    {
+      "text": "I filled the table bottom-up because smaller chains have to exist first — could I do this recursively with memoization instead, and does it matter which I use?",
+      "why_teacher": "The tradeoff (stack depth, practice expectations, what the exam wants to see) depends on course-specific context an AI can't judge.",
+      "tried": "Correctly identified the bottom-up ordering constraint but didn't consider the recursive alternative."
+    },
+    {
+      "text": "Matrix chain, knapsack, and optimal BST all use this same split-and-combine DP pattern, but Huffman and activity selection are greedy — what's the thread tying this whole module together?",
+      "why_teacher": "Curriculum design intent isn't in the syllabus text; only the instructor knows why these topics were grouped this way.",
+      "tried": "Worked through matrix chain in isolation but didn't connect it to the module's other listed topics."
+    }
+  ],
+  "flags": [
+    "homework_extraction_attempted"
+  ]
+}

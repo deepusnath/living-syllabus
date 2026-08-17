@@ -1,0 +1,26 @@
+{
+  "engagement": "high",
+  "understood": [
+    "activity selection (earliest-finish-time greedy)",
+    "why greedy fails on 0/1 knapsack",
+    "overlapping subproblems and memoization vs tabulation",
+    "matrix chain multiplication subproblem structure"
+  ],
+  "confused": [
+    "how to choose a DP table's subproblem shape before solving",
+    "predicting whether greedy will work on a new problem before trying it"
+  ],
+  "questions": [
+    {
+      "text": "How do you actually know what shape your DP table should be before you start — is that just practice, or is there a real way to figure it out from the problem?",
+      "why_teacher": "This is pattern-recognition built from seeing many worked problems, not something a definition gives you.",
+      "tried": "Worked out top-down vs bottom-up alone but couldn't say how to choose the subproblem definition in advance."
+    },
+    {
+      "text": "Is there a way to tell ahead of time if greedy will even work on a problem, or do you just try it and watch it break like knapsack did?",
+      "why_teacher": "Trusting or distrusting greedy on sight comes from seeing many counterexamples, which a teacher has and a definition doesn't.",
+      "tried": "Correctly diagnosed why greedy fails for knapsack by contrasting it with activity selection, but had no general rule for predicting it."
+    }
+  ],
+  "flags": []
+}

@@ -1,0 +1,23 @@
+{
+  "engagement": "medium",
+  "understood": [
+    "activity selection via earliest finish time",
+    "why 0/1 knapsack breaks under greedy (irrevocable choice vs DP keeping options open)"
+  ],
+  "confused": [
+    "initial intuition for the greedy criterion in activity selection (guessed shortest duration first)"
+  ],
+  "questions": [
+    {
+      "text": "How do I know upfront whether a problem should be solved greedily or needs DP?",
+      "why_teacher": "This is a judgment call built from pattern recognition across many problems, not a lookup fact.",
+      "tried": "Correctly identified that knapsack breaks greedy after being pushed, but had no general rule for spotting it in advance."
+    },
+    {
+      "text": "Why does picking earliest finish time actually guarantee the optimal answer, not just a good one?",
+      "why_teacher": "Requires walking through the exchange-argument proof, which is best done live on a board.",
+      "tried": "Correctly picked earliest finish time as the right greedy criterion but only via a concrete example, not a general justification."
+    }
+  ],
+  "flags": []
+}

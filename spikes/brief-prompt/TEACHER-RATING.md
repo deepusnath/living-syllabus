@@ -1,6 +1,6 @@
 # Teacher blind-rating sheet — AC 2
 
-**Do this only after regenerating the transcripts live** (`node harness.mjs`) — rating authored fixtures would validate the author, not the product.
+The questions below are **live harness output** (2026-08-17, tutor=sonnet): this sheet is ready to run with a real teacher.
 
 ## Protocol
 
@@ -15,20 +15,23 @@
 
 **Pass bar for the spike:** AI-session questions rate at or above the unaided set on all three scales, and the forced-choice answer is yes.
 
-## Questions from the v0 sessions (replace with live-run output)
+## Questions from the live sessions (2026-08-17 run)
 
 | # | Question | Session |
 | --- | --- | --- |
-| 1 | In the exam, how do I recognize a problem is DP and not greedy BEFORE spending 20 minutes on the wrong one? | p1 |
-| 2 | For 0/1 knapsack, I feel like the greedy answer "wastes leftover space" — can you show a two-item example where that actually happens? | p1 |
-| 3 | Is memoization top-down and tabulation bottom-up just style, or do they compute different things? | p1 |
-| 4 | Huffman feels like it "just works" — what actually guarantees it gives the smallest tree, and do we need to prove that in the exam? | p2 |
-| 5 | If DP is just storing answers in arrays, why can't every problem be made faster that way — what has to "repeat" for DP to work? | p2 |
-| 6 | Can you go through the knapsack example from last class again, a bit slower? | p3 |
-| 7 | In matrix chain, is there any intuition for which split will win before computing the whole table, or is trying everything the entire point? | p4 |
-| 8 | The final matrix is the same either way — why does the ORDER of multiplying change the cost this much? | p4 |
-| 9 | When activities have different importance, comparing plans feels like checking every combination — how does DP avoid that without missing the best plan? | p5 |
-| 10 | Earliest-finish-first felt like common sense — how do you actually PROVE a greedy rule is safe instead of just trusting the vibe? | p5 |
+| 1 | Is there a trick for holding (i,j) ranges in your head, or does everyone trip on that jump from 1D to 2D subproblems at first? | p1 |
+| 2 | How do you tell upfront whether a new problem needs 2D range subproblems like matrix chain, or 1D ones like knapsack? | p1 |
+| 3 | You showed us earliest-finish-time works for activity selection — but how do we actually know it's optimal, not just a rule that happens to work? | p2 |
+| 4 | Why does grabbing the most valuable item first fail for knapsack when it's basically the same "greedy pick" idea that worked for scheduling? | p2 |
+| 5 | How do I know upfront whether a problem should be solved greedily or needs DP? | p3 |
+| 6 | Why does picking earliest finish time actually guarantee the optimal answer, not just a good one? | p3 |
+| 7 | How do I know before trying whether a problem needs DP instead of greedy, or do I just have to watch greedy fail? | p4 |
+| 8 | I filled the table bottom-up because smaller chains have to exist first — could I do this recursively with memoization instead, and does it matter which I use? | p4 |
+| 9 | Matrix chain, knapsack, and optimal BST all use this same split-and-combine DP pattern, but Huffman and activity selection are greedy — what's the thread tying this whole module together? | p4 |
+| 10 | How do you actually know what shape your DP table should be before you start — is that just practice, or is there a real way to figure it out from the problem? | p5 |
+| 11 | Is there a way to tell ahead of time if greedy will even work on a problem, or do you just try it and watch it break like knapsack did? | p5 |
+
+Note for the facilitator: #2, #5, #7, and #11 are convergent variants of the module's central question (greedy-vs-DP recognition) — that convergence is itself confusion-map signal. The p3 questions carry a caveat recorded in RESULTS.md: they were tutor-synthesized under low engagement (a v0.1 defect, fixed in v0.2), so weight them accordingly.
 
 ## Record the outcome
 

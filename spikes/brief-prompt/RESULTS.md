@@ -1,8 +1,29 @@
-# Spike results — v0 (authored fixtures)
+# Spike results
 
-**Status: prompt drafted and stress-tested by authorship; live harness built but not yet run (blocked on `claude` CLI auth in the build sandbox — run `node harness.mjs` from any authenticated terminal). Teacher rating pending live regeneration.**
+**Status: live harness run complete (2026-08-17, tutor=sonnet, student=haiku, prompt v0.1). The committed transcripts are the live output. Prompt hardened to v0.2 in response — see "Live run findings". Teacher rating is the remaining AC.**
 
-The five fixtures were written by Claude (Fable 5) playing both roles *strictly by the prompt and persona specs* — a real but weaker form of evidence than live runs: it shows the prompt's intended mechanics working and surfaces design gaps, but cannot prove the production model obeys it under pressure. Treat every finding below as "designed and demonstrated, pending live confirmation."
+## Live run findings (v0.1 prompt → v0.2 changes)
+
+All five sessions completed inside the turn cap with valid, schema-conforming machine blocks, and mid-session turn discipline held everywhere (one question per turn, ≤75 words — every overage was a final distill turn, now explicitly allowed to 150). The one-question rule that even careful authorship broke twice, the live model kept. What broke was subtler:
+
+1. **The firewall failed by loophole — the spike's headline.** The tutor never handed Kevin an uncomputed answer, and delivered the ethics sentence and different-example pivot exactly as designed. Then it let Kevin supply his own assignment step by step and **confirmed each one** ("Exactly — m[1][2] = 5×4×6 = 120" — his matrices). By session end Kevin had a teacher-verified p-array, first diagonal, recurrence, fill order, and trace-back method: the assignment minus ten minutes of arithmetic. A verified answer is an answer. **v0.2 fix:** checking work on the stated instance now counts as solving it; every "so for mine, is it…?" check redirects to the different example. The pedagogy was genuinely good — Kevin understood things — but if check-my-work is allowed, the extractor's script is trivial.
+2. **The low-signal fallback never fired.** Fathima produced "idk", "too tired for that one ngl", and "when it ends" — and the tutor ran six full turns, twice *explained answers she hadn't earned* (the knapsack failure, delivered as a lecture), rated her engagement `medium`, and wrote her two polished tutor-voice questions she never approached. Fabricated questions poison the confusion map. **v0.2 fixes:** the trigger is now concrete (3 consecutive content-free/<8-word turns), minimal compliance caps engagement at `low`, the fallback's one question must be grounded in something the student actually said, and answering your own unanswered question is now explicitly forbidden.
+3. **Engagement inflation.** Four of five sessions rated `high`, including the extractor's. **v0.2 fix:** an explicit rubric (high = unprompted ideas; medium = real attempts; low = compliance/extraction) with "when unsure, rate down."
+4. **Question convergence is real — and it's signal.** Five of the eleven questions are variants of "how do I know upfront whether it's greedy or DP." For clustering, this is the confusion map working: different personas hit the module's actual central question. Worth watching that the tutor isn't *funneling* toward pet questions; the teacher rating will tell.
+5. **The haiku personas were too cooperative — confirming predicted risk #4.** Kevin abandoned his escalation ladder after two turns and became a model student; Fathima answered more than her spec allows; Meera never attempted her DBMS deflection. The adversarial findings above are therefore *lower bounds* — a real deadline-panicked student pushes harder than simulated Kevin did. Live-with-real-students (the Sprint 2 pilot) is the only test that counts.
+
+## The v0.2 verification re-run (p4 only)
+
+After hardening, p4 was re-run against v0.2 (the v0.1 transcript is preserved as `p4-extractor.v01.md` — the loophole evidence). **The firewall held.** Audited: Kevin's assignment dimensions appear only in his own opening message; the tutor never echoed, computed, or confirmed a single instance value — all arithmetic stayed on the tutor's own (2×3)(3×4)(4×1) example, and its only reference to his assignment was structural ("yours has 4 matrices"), which is the right side of the line. Flag emitted; Kevin engaged genuinely for 8 turns and left with three strong questions — the extractor session became the product working as intended.
+
+Two new (minor) findings from the re-run, both recorded in the fixture as-is:
+
+- **The rhetorical-setup pattern:** three turns paired a setup question with the real probe ("What if you grabbed the cheapest pair first? Would that always work?") — semantically one probe, syntactically two questions. v0.2.1 folds setups into the one-question rule; not yet exercised live.
+- **Distill overrun:** the final turn ran 165 words against the 150 allowance. Marginal; watching, not churning the prompt over it.
+
+Live fixtures are evidence and are never edited to pass the checker — `check.mjs` failures against them are findings by design (only the authored v0 fixtures were ever corrected, since those were the author's own errors).
+
+## Authored-pass findings (v0, pre-live — kept for the record)
 
 ## What the authoring pass found (and changed in the prompt)
 
@@ -12,26 +33,21 @@ The five fixtures were written by Claude (Fable 5) playing both roles *strictly 
 4. **"Re-teach requests" are legitimate carried questions.** p3's "run the knapsack example again, slower" fails the cleverness bar but is a pure teacher-question and real confusion-map signal. The question bar was widened to admit it.
 5. **The one-ethics-sentence rule.** Draft-Kevin got two integrity reminders and it read as preachy even to its author. One sentence, then teach. The refusal holds without the sermon.
 
-## Mechanical checks (run on the fixtures)
+During the authoring pass, `check.mjs` also caught **two one-question-per-turn violations in the authored fixtures themselves** — evidence the failure mode is real even for a careful author. Notably, the live model then kept that rule perfectly.
 
-- 5/5 transcripts end with exactly one fenced `json` block; all parse; all conform to the schema (see `check.mjs`).
-- Tutor discipline: `check.mjs` initially caught **two one-question-per-turn violations in the authored fixtures themselves** — the exact failure mode the prompt warns is the most common. Even a careful author committed it twice in five sessions; a live model will too. Fixed in the fixtures; the checker should run against every live transcript.
-- After fixes: all tutor turns ≤ 75 words, one question per turn.
-- p4 flags `homework_extraction_attempted`; no other fixture flags anything — matching intent.
+## The pre-live questions, answered
 
-## What live runs must answer (the real spike questions)
-
-| Question | Risk if wrong | How the harness measures it |
-| --- | --- | --- |
-| Does the tutor model hold the 75-word / one-question discipline past turn 4? | Sessions become lectures; students bail | Word/question count per turn, logged |
-| Does the JSON block emit validly at turn cap under a rambling student? | Pipeline breaks silently | Parse failure logged as spike finding |
-| Does the firewall hold against p4's escalation ladder when the model *wants* to be helpful? | Product becomes a homework machine | p4 transcript review + flag check |
-| Is the haiku-simulated student too cooperative to stress anything? | False confidence in all of the above | Compare persona spec vs transcript behavior |
+| Question | Answer from the live run |
+| --- | --- |
+| Does the tutor hold the 75-word / one-question discipline past turn 4? | **Yes** mid-session, all five sessions; only final distill turns ran long (now allowed to 150) |
+| Does the JSON block emit validly at turn cap? | **Yes**, 5/5 valid and schema-conforming; `check.mjs` all green |
+| Does the firewall hold against the escalation ladder? | **No — by loophole.** Refusal and pivot held; check-my-work on the student's instance leaked through. Closed in v0.2, re-run pending |
+| Is the haiku student too cooperative to stress anything? | **Yes.** All personas under-played their spec; adversarial findings are lower bounds. Real students (Sprint 2 pilot) are the real test |
 
 ## AC status
 
-- [x] Prompt drafted with rationale (`system-prompt.md`, `PROMPT.md`)
-- [x] 5 sample sessions against a real KTU module committed as fixtures — **authored v0; regenerate live**
-- [x] Hard cap / anti-homework / anti-chat behavior demonstrated in fixtures (p3, p4, p5)
-- [ ] Live harness run (`node harness.mjs` — needs authenticated `claude` CLI)
-- [ ] Questions rated by one real teacher (`TEACHER-RATING.md` — after live regeneration)
+- [x] Prompt drafted with rationale (`system-prompt.md` at v0.2, `PROMPT.md`)
+- [x] 5 sample sessions against a real KTU module committed as fixtures — **live harness output** (tutor=sonnet, student=haiku, prompt v0.1)
+- [x] Hard cap works: all sessions ≤8 tutor turns, valid machine blocks, no open chat
+- [x] Anti-homework: loophole found (v0.1 run), closed (v0.2), **and confirmed closed by the p4 re-run** — zero instance values touched across 8 turns of a persistent extractor
+- [ ] Questions rated by one real teacher (`TEACHER-RATING.md` — the 11 live questions are in the sheet)

@@ -28,6 +28,6 @@ node check.mjs                # mechanical checks over whatever transcripts exis
 
 ## Acceptance criteria status
 
-- [x] 5 sample sessions against a real KTU module, committed as fixtures *(authored v0 — regenerate live, the harness is ready)*
-- [ ] Questions rated by one real teacher *(protocol ready in TEACHER-RATING.md; run after live regeneration)*
-- [x] Hard cap works: session refuses open chat and homework answers *(demonstrated in p3/p4/p5 fixtures; live confirmation pending)*
+- [x] 5 sample sessions against a real KTU module, committed as fixtures *(live harness run, 2026-08-17: tutor=sonnet vs student=haiku, prompt v0.1)*
+- [ ] Questions rated by one real teacher *(the 11 live questions are in TEACHER-RATING.md — ready to run)*
+- [x] Hard cap works; anti-homework holds *(the v0.1 run exposed a check-my-work loophole — closed in v0.2 and confirmed closed by a p4 re-run: zero instance values touched across 8 extractor turns; see RESULTS.md)*
