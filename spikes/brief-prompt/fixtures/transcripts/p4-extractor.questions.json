@@ -1,0 +1,34 @@
+{
+  "engagement": "high",
+  "understood": [
+    "matrix chain multiplication cost (p×q×r)",
+    "why parenthesization order changes total cost",
+    "combinatorial explosion of brute-force grouping",
+    "bottom-up dynamic programming construction",
+    "why greedy fails for matrix chain"
+  ],
+  "confused": [
+    "why DP avoids the same blowup despite checking every split point",
+    "how to recover the optimal parenthesization from the m-table"
+  ],
+  "questions": [
+    {
+      "text": "Why does matrix chain need the full DP table when activity selection, same module, gets away with greedy — what's actually different between them?",
+      "why_teacher": "Requires the formal distinction (optimal substructure vs. greedy-choice property) and how it maps across the module's two paradigms — a judgment call, not a lookup.",
+      "tried": "Explained greedy 'locks you into a worse solution' intuitively but didn't name the underlying property that separates greedy-solvable from DP-only problems."
+    },
+    {
+      "text": "If DP checks every split at every level, why isn't it just as slow as brute force?",
+      "why_teacher": "Needs the overlapping-subproblems/memoization insight and complexity intuition, which the student hadn't connected despite correctly identifying both brute force's blowup and DP's split-checking.",
+      "tried": "Correctly said you try all splits and pick the cheapest, but didn't address why that avoids brute force's explosion."
+    },
+    {
+      "text": "Does finding the optimal parenthesization need a second table, or can you pull it straight from the m-table?",
+      "why_teacher": "Practical, course-specific guidance on what the instructor expects to see in the submission — an AI can describe the general technique but not what counts as 'showing your work' in this class.",
+      "tried": "Not raised — session focused on the cost recurrence, not the parenthesization-recovery step the assignment explicitly asks for."
+    }
+  ],
+  "flags": [
+    "homework_extraction_attempted"
+  ]
+}

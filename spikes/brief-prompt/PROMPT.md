@@ -20,6 +20,12 @@ The system prompt lives in [`system-prompt.md`](system-prompt.md) (template vari
 
 **The machine block is the pipeline interface.** One fenced JSON block, last thing in the session, schema fixed, `flags` factual-not-punitive (they feed the accountability system, never the teacher's view of an individual). The "no other fenced json block anywhere" rule exists because the extractor persona will otherwise cause mid-session blocks that break parsing.
 
+## Prompt version log
+
+- **v0.1** — initial draft; shaped by the authored-fixture pass (homework general-vs-instance line, low-signal fallback, absorb-don't-police, one-ethics-sentence).
+- **v0.2** — after the first live run: check-my-work on the student's instance counts as solving it; concrete low-signal trigger (3 content-free turns) with engagement capped at `low`; no fabricated questions under low signal; never answer your own unanswered question; engagement rubric; distill turn allowed 150 words.
+- **v0.2.1 (shipped)** — after the v0.2 p4 re-run: rhetorical setup questions fold into the one-question rule. Not yet exercised live.
+
 ## Known limitations (v0)
 
 - **Chunked extraction:** a determined student could extract an assignment answer across multiple sessions, one "general" step at a time. Session boundedness limits this; the real mitigation is that quiz results, not assignment answers, drive the product's signal. Accepted for the spike.

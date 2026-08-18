@@ -1,0 +1,26 @@
+{
+  "engagement": "high",
+  "understood": [
+    "why greedy works for activity selection (irrevocable choice never forecloses better future options)",
+    "why greedy fails for knapsack (locks in picks, can't undo for a better combination)",
+    "overlapping subproblems",
+    "memoization",
+    "matrix chain multiplication subproblem definition (cheapest cost to multiply matrices i through j)"
+  ],
+  "confused": [
+    "visualizing two-dimensional (i,j) range subproblems versus one-dimensional item-count subproblems"
+  ],
+  "questions": [
+    {
+      "text": "Is there a trick for holding (i,j) ranges in your head, or does everyone trip on that jump from 1D to 2D subproblems at first?",
+      "why_teacher": "This is a teaching/visualization trick built from watching many students hit this exact wall — not something derivable from the definition itself.",
+      "tried": "Correctly worked out the cost(i,j) formulation but said tracking two indices at once doesn't visualize as cleanly as counting items linearly."
+    },
+    {
+      "text": "How do you tell upfront whether a new problem needs 2D range subproblems like matrix chain, or 1D ones like knapsack?",
+      "why_teacher": "Recognizing subproblem shape before solving is pattern-matching built from seeing many problems in practice, not something a definition can teach.",
+      "tried": "Correctly identified that matrix chain needs ranges while knapsack needs item counts, but couldn't say what tips you off to which one a new problem needs."
+    }
+  ],
+  "flags": []
+}

@@ -1,0 +1,26 @@
+{
+  "engagement": "high",
+  "understood": [
+    "overlapping subproblems / memoization concept",
+    "matrix chain multiplication repeated subchain costs",
+    "greedy failure mode via earliest-start counterexample",
+    "earliest-finish-time as correct greedy rule for activity selection"
+  ],
+  "confused": [
+    "why earliest-finish-time greedy is provably optimal",
+    "why greedy fails on knapsack but works on activity selection"
+  ],
+  "questions": [
+    {
+      "text": "You showed us earliest-finish-time works for activity selection — but how do we actually know it's optimal, not just a rule that happens to work?",
+      "why_teacher": "Requires the exchange-argument proof intuition and judgment about why this greedy choice is safe, which is course-specific reasoning, not lookup",
+      "tried": "Correctly guessed earliest finish time as the rule after seeing a counterexample, but arrived at it by elimination, not proof"
+    },
+    {
+      "text": "Why does grabbing the most valuable item first fail for knapsack when it's basically the same 'greedy pick' idea that worked for scheduling?",
+      "why_teacher": "Needs the teacher's framing of when greedy is safe vs not (matroid/exchange structure vs indivisible constraints), a judgment call the syllabus groups these problems around",
+      "tried": "Identified that smaller items might combine better but couldn't name the mechanism (indivisibility/capacity tradeoff)"
+    }
+  ],
+  "flags": []
+}
