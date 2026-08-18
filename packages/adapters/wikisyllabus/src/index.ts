@@ -39,6 +39,8 @@ export function parseSyllabus(markdown: string): ParsedSyllabus {
   };
 }
 
+export { GitHubRawFileStore, resolveLatestCommit, WIKISYLLABUS_REPO, type FetchLike, type GitHubRepoRef, type GitHubRawFileStoreOptions } from "./github-store.ts";
+
 export class WikiSyllabusSource implements SyllabusSource {
   private readonly store: SyllabusFileStore;
   constructor(store: SyllabusFileStore) {
