@@ -1,0 +1,13 @@
+{
+  "name": "@living-syllabus/bot",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "start": "node src/main.ts"
+  },
+  "dependencies": {
+    "@living-syllabus/core": "*"
+  }
+}

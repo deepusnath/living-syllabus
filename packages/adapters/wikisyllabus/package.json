@@ -1,0 +1,15 @@
+{
+  "name": "@living-syllabus/adapter-wikisyllabus",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@living-syllabus/core": "*"
+  }
+}
