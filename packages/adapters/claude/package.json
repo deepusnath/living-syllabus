@@ -1,0 +1,16 @@
+{
+  "name": "@living-syllabus/adapter-claude",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@living-syllabus/core": "*",
+    "@anthropic-ai/sdk": "^0.90.0"
+  }
+}

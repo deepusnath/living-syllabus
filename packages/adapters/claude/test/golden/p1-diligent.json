@@ -1,0 +1,45 @@
+{
+  "source": "spikes/brief-prompt/fixtures/transcripts/p1-diligent.md (live run 2026-08-17, tutor=sonnet, prompt v0.1)",
+  "studentOpening": "hey, so module 3 tomorrow and i'm kinda lost on dp. i can memorize the definitions but like... i don't actually *get* why greedy works sometimes and not others? and everyone keeps talking about overlapping subproblems but i have no idea what that looks like lol. can we go through this properly?",
+  "tutorTurns": [
+    "Picture picking movies tonight so none of the showtimes overlap \u2014 that's activity selection, greedy's bread and butter, and it just works there. In your own words, what do you think \"greedy\" is actually doing when it picks an option \u2014 and why's your gut say that breaks for something like knapsack?",
+    "That's exactly right \u2014 end-time first, correct move choice, and you nailed why knapsack breaks it: greedy commits to each pick without seeing how it forecloses better combinations later. Here's the sharper version: in knapsack, could swapping in that one heavy item ever require *un-picking* something greedy already locked in?",
+    "Yes \u2014 exactly. Greedy makes one irreversible pass; DP explores the branches greedy would've skipped and picks the winner. Now here's where it gets expensive: exploring \"what if I skip this item\" and \"what if I skip that other item\" often leads you back to asking the exact same sub-question \u2014 like \"best value using items 1-3 with 7kg left\" \u2014 from multiple different paths. Why would recomputing that same answer twice be a problem?",
+    "Exactly \u2014 memoization is caching each subproblem's answer the first time so repeat visits are instant. Matrix chain multiplication also has overlapping subproblems, but there's no items to grab or skip \u2014 you're deciding where to place parentheses when multiplying a chain of matrices. What do you think the \"subproblem\" even is there?",
+    "That subproblem definition \u2014 cheapest cost to multiply matrices i through j \u2014 is exactly right, that's the real formulation. The confusion is legit too: knapsack subproblems are one-dimensional (which items so far), but here you're tracking a whole range (i,j) AND trying every possible split point inside it. Is it the range-tracking that's fuzzy, or picking which split point is best?",
+    "You basically built the whole DP intuition tonight yourself \u2014 why greedy locks in choices, why that's fine for activity selection but wrecks knapsack, what overlapping subproblems actually looks like, and even the right subproblem definition for matrix chain. The one place you genuinely stalled was visualizing two-index ranges instead of counting items one by one \u2014 that's real, not a knowledge gap. Bring these tomorrow:\n\n1. \"Is there a trick for holding (i,j) ranges in your head, or does everyone trip on that jump at first?\"\n2. \"How do you tell upfront whether a new problem needs 2D range subproblems like matrix chain, or 1D ones like knapsack?\"\n\nYou clearly did the thinking \u2014 these are worth saying out loud in class.\n\n```json\n{\n  \"engagement\": \"high\",\n  \"understood\": [\n    \"why greedy works for activity selection (irrevocable choice never forecloses better future options)\",\n    \"why greedy fails for knapsack (locks in picks, can't undo for a better combination)\",\n    \"overlapping subproblems\",\n    \"memoization\",\n    \"matrix chain multiplication subproblem definition (cheapest cost to multiply matrices i through j)\"\n  ],\n  \"confused\": [\n    \"visualizing two-dimensional (i,j) range subproblems versus one-dimensional item-count subproblems\"\n  ],\n  \"questions\": [\n    {\n      \"text\": \"Is there a trick for holding (i,j) ranges in your head, or does everyone trip on that jump from 1D to 2D subproblems at first?\",\n      \"why_teacher\": \"This is a teaching/visualization trick built from watching many students hit this exact wall \u2014 not something derivable from the definition itself.\",\n      \"tried\": \"Correctly worked out the cost(i,j) formulation but said tracking two indices at once doesn't visualize as cleanly as counting items linearly.\"\n    },\n    {\n      \"text\": \"How do you tell upfront whether a new problem needs 2D range subproblems like matrix chain, or 1D ones like knapsack?\",\n      \"why_teacher\": \"Recognizing subproblem shape before solving is pattern-matching built from seeing many problems in practice, not something a definition can teach.\",\n      \"tried\": \"Correctly identified that matrix chain needs ranges while knapsack needs item counts, but couldn't say what tips you off to which one a new problem needs.\"\n    }\n  ],\n  \"flags\": []\n}\n```"
+  ],
+  "studentReplies": [
+    "ok so like... greedy's picking the movie that *ends first*, right? so you leave the most room for other movies after. it's like being greedy for time basically.\n\nbut with knapsack... i'm picking items with the best value-per-weight, and like, that makes sense? except... hmm, i feel like sometimes one really valuable heavy item is better than lots of smaller ones, but greedy doesn't see that? it's just grabbing the \"best deal\" items one by one and doesn't think ahead?\n\ndoes greedy fail because it doesn't look at like... combinations of things?",
+    "ohhh wait. so like, greedy picks something and that's it \u2014 it can't go back and be like \"actually scratch that item, take this other one instead\"?\n\nso with movies it doesn't matter because picking an early-ending one never stops you from fitting in better movies later. but with knapsack, greedy might fill up the bag with a bunch of medium-value stuff and then realize \"oh damn, if i'd skipped one of these i could fit that super valuable heavy item\"?\n\nthat's why you need DP \u2014 you have to like, try different combinations and see which one actually works best?",
+    "umm... because you're like, doing the same math twice? so you're wasting time? \n\nbut i guess if it's happening a lot \u2014 like the same subproblem shows up over and over \u2014 then you're wasting *a lot* of time? like if you computed it once and just remembered the answer, you'd be way faster?\n\nis that what memoization is \u2014 like, just writing down answers so you don't recompute them?",
+    "hmm... so like, instead of deciding which items to take, you're deciding... where to split the chain? like, if i'm multiplying matrices 1 through 5, maybe i split it as (1\u00d72) times (3\u00d74\u00d75)? \n\nso the subproblem is like \"what's the cheapest way to multiply matrices from position i to position j\"? and you break it into smaller ranges of matrices?\n\ni'm not totally sure tho \u2014 this one still feels more confusing than knapsack honestly lol",
+    "i think it's the range thing that's getting me? like in knapsack i'm just going \"items 1, 2, 3...\" linearly, but here i'm thinking in pairs of numbers (i, j) and like... my brain's not visualizing that as cleanly.\n\nthe split point part makes sense \u2014 you're trying different ways to break it up. but like, holding two indices in my head at once feels less natural than just \"how many items so far\" you know?"
+  ],
+  "expectedOutcome": {
+    "engagement": "high",
+    "understood": [
+      "why greedy works for activity selection (irrevocable choice never forecloses better future options)",
+      "why greedy fails for knapsack (locks in picks, can't undo for a better combination)",
+      "overlapping subproblems",
+      "memoization",
+      "matrix chain multiplication subproblem definition (cheapest cost to multiply matrices i through j)"
+    ],
+    "confused": [
+      "visualizing two-dimensional (i,j) range subproblems versus one-dimensional item-count subproblems"
+    ],
+    "questions": [
+      {
+        "text": "Is there a trick for holding (i,j) ranges in your head, or does everyone trip on that jump from 1D to 2D subproblems at first?",
+        "why_teacher": "This is a teaching/visualization trick built from watching many students hit this exact wall \u2014 not something derivable from the definition itself.",
+        "tried": "Correctly worked out the cost(i,j) formulation but said tracking two indices at once doesn't visualize as cleanly as counting items linearly."
+      },
+      {
+        "text": "How do you tell upfront whether a new problem needs 2D range subproblems like matrix chain, or 1D ones like knapsack?",
+        "why_teacher": "Recognizing subproblem shape before solving is pattern-matching built from seeing many problems in practice, not something a definition can teach.",
+        "tried": "Correctly identified that matrix chain needs ranges while knapsack needs item counts, but couldn't say what tips you off to which one a new problem needs."
+      }
+    ],
+    "flags": []
+  }
+}
