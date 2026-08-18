@@ -20,10 +20,18 @@ export interface BriefOutcome {
   readonly flags: readonly BriefFlag[];
 }
 
+/** The engine's channel to the student (ADR-0002): `deliver` fires for every
+ * tutor turn including the final close; `listen` is awaited only while the
+ * session continues — never after the close. */
+export interface BriefIO {
+  deliver(tutorText: string): Promise<void>;
+  listen(): Promise<string>;
+}
+
 /** Runs the bounded Socratic brief. The adapter owns prompts and the model;
  * the core owns the outcome schema. */
 export interface BriefEngine {
-  runBrief(module: ModuleContent, studentTurn: (tutorText: string) => Promise<string>): Promise<BriefOutcome>;
+  runBrief(module: ModuleContent, io: BriefIO): Promise<BriefOutcome>;
 }
 
 export interface QuestionClusterer {
